@@ -1,11 +1,13 @@
 /*<!-------------- Enemy Section -------------->*/
 
 // Enemies our player must avoid
-var Enemy = function(x, y, sprite) {
+var Enemy = function(x, y, speed, sprite) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
     this.x = x;
     this.y = y;
+    // Intialise enemies speed
+    this.speed = Math.random() * 5;
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
@@ -16,10 +18,22 @@ var Enemy = function(x, y, sprite) {
 Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
-    // all computers.
-   
-    
+    // all computers. (Give the illusion of animation)
+  	this.move(dt);  // the 'dt' parameter ensures the game runs at same speed for all computers.
+  	this.newPosition(); // re-position after the right wall & change the speed of the enemies
+
 };
+
+Enemy.prototype.move = function(dt) {
+	this.x += this.speed + dt;
+}
+
+Enemy.prototype.newPosition = function() {
+	if(this.x > 500) {
+		this.x = -500;
+		this.speed = Math.random() * 10;
+	}
+}	
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
@@ -39,17 +53,24 @@ var Player = function(x, y, sprite) {
 
 Player.prototype.update = function(dt) {
 	// Avoid character from moving beyond the wall
-	if(this.x < 0) {  // Check the left wall
-		this.x = 0;
-	}else if(this.x > 400) { // Check the right wall
-		this.x = 400; 
-	}else if(this.y > 400) { // Check the bottom wall
-		this.y = 400;
-	}
-
+	this.avoidOffScreen();
 	// Check for player reaching top of canvas and winning the point
 	if(this.y < 30) {
 		this.x = 200;
+		this.y = 400;
+	}
+};
+
+Player.prototype.avoidOffScreen= function() {
+	if(this.x < 0) {  // Check the left wall
+		this.x = 0;
+	} 
+
+	if(this.x > 400) { // Check the right wall
+		this.x = 400; 
+	}
+
+	if(this.y > 400) { // Check the bottom wall
 		this.y = 400;
 	}
 };
@@ -79,15 +100,15 @@ Player.prototype.handleInput = function(keyCode_value) {
 /*<!-------------- Instantiate Objects -------------->*/
 
 // Multiple enemy instance from Enemy Class
-var enemy1 = new Enemy(50,225); // row 1
-var enemy2 = new Enemy(300, 140);  // row 2
-var enemy3 = new Enemy(100, 140);  // row 2
-var enemy4 = new Enemy(200, 60);  // row 3
-
+var enemy1 = new Enemy(400,225); // row 1
+var enemy2 = new Enemy(50, 140);  // row 2
+var enemy3 = new Enemy(300, 140);  // row 2
+var enemy4 = new Enemy(300, 60);  // row 3
+var enemy5 = new Enemy(50, 60); // row 3
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var allEnemies = [enemy1, enemy2, enemy3, enemy4];
+var allEnemies = [enemy1, enemy2, enemy3, enemy4, enemy5];
 var player = new Player(200,400);
 
 
