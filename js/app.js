@@ -7,7 +7,7 @@ var Enemy = function(x, y, speed, sprite) {
     this.x = x;
     this.y = y;
     // Intialise enemies speed
-    this.speed = Math.random() * 5;
+    this.speed = (Math.random() * 5) + 1;
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
@@ -30,8 +30,8 @@ Enemy.prototype.move = function(dt) {
 
 Enemy.prototype.newPosition = function() {
 	if(this.x > 500) {
-		this.x = -500;
-		this.speed = Math.random() * 10;
+		this.x = -1000;
+		this.speed = (Math.random() * 10) + 2;
 	}
 }	
 
@@ -52,8 +52,8 @@ var Player = function(x, y, sprite) {
 };
 
 Player.prototype.update = function(dt) {
-	// Avoid character from moving beyond the wall
-	this.avoidOffScreen();
+	this.avoidOffScreen(); // Avoid character from moving beyond the wall
+	this.checkCollision(); // Collision between Player & Enemies
 	// Check for player reaching top of canvas and winning the point
 	if(this.y < 30) {
 		this.x = 200;
@@ -78,6 +78,24 @@ Player.prototype.avoidOffScreen= function() {
 Player.prototype.render = function() {
 	ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
+
+Player.prototype.checkCollision = function() {
+	// Loop the allEnemies array
+	for(var i = 0; i < allEnemies.length; i++) {
+		// Check collision for player location and enemies location from x-axis and y-axis 
+		if(player.x < allEnemies[i].x + 60 && // Check for right x-axis
+			player.x + 60 > allEnemies[i].x && // Check for left x-axis
+			player.y < allEnemies[i].y + 60 && // Check for right y-axis
+			player.y + 60 > allEnemies[i].y) { // Check for left y-axis
+				this.reset();
+		} 
+	}
+};
+
+Player.prototype.reset = function() {
+	this.x = 200;
+	this.y = 400;
+}
 
 Player.prototype.handleInput = function(keyCode_value) {
 	switch(keyCode_value) {
