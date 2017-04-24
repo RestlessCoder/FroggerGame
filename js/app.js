@@ -6,7 +6,7 @@ var Enemy = function(x, y, speed, sprite) {
     // we've provided one for you to get started
     this.x = x;
     this.y = y;
-    // Intialise enemies speed
+    // Initialise enemies speed
     this.speed = (Math.random() * 5) + 1;
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
@@ -45,21 +45,23 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-var Player = function(x, y, sprite) {
+var Player = function(x, y, life, sprite) {
 	this.x = x;
 	this.y = y;
+	this.life = 3; // Set the player's with default lives
 	this.sprite = 'images/char-boy.png';
 };
 
 Player.prototype.update = function(dt) {
 	this.avoidOffScreen(); // Avoid character from moving beyond the wall
 	this.checkCollision(); // Collision between Player & Enemies
-	// Check for player reaching top of canvas and winning the point
-	if(this.y < 30) {
-		this.x = 200;
-		this.y = 400;
-	}
+	this.receivePoints(); // Player received points by reaching top of the canvas
 };
+
+// Draw the player on the screen
+Player.prototype.render = function() {
+	ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+}; 
 
 Player.prototype.avoidOffScreen= function() {
 	if(this.x < 0) {  // Check the left wall
@@ -75,10 +77,6 @@ Player.prototype.avoidOffScreen= function() {
 	}
 };
 
-Player.prototype.render = function() {
-	ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
-
 Player.prototype.checkCollision = function() {
 	// Loop the allEnemies array
 	for(var i = 0; i < allEnemies.length; i++) {
@@ -87,14 +85,26 @@ Player.prototype.checkCollision = function() {
 			player.x + 60 > allEnemies[i].x && // Check for left x-axis
 			player.y < allEnemies[i].y + 60 && // Check for right y-axis
 			player.y + 60 > allEnemies[i].y) { // Check for left y-axis
+				// Reset the player after collision
 				this.reset();
+				gameLife.decreaseLife();
+
 		} 
+	}
+};
+
+Player.prototype.receivePoints= function() {
+	// Check for player reaching top of canvas and winning the point
+	if(this.y < 30) {
+		this.reset();
+		gameScore.scorePoint();
 	}
 };
 
 Player.prototype.reset = function() {
 	this.x = 200;
 	this.y = 400;
+	
 }
 
 Player.prototype.handleInput = function(keyCode_value) {
@@ -114,6 +124,45 @@ Player.prototype.handleInput = function(keyCode_value) {
 
 };
 
+/*<!-------------- Life Section -------------->*/
+
+var Life = function(life) {
+	this.life = 3;
+};
+
+// Put information for lifes on the screen and when life is equal to zero(Game Over) 
+Life.prototype.render = function() {
+	ctx.clearRect(0,0, 505, 50); // Clear the canvas and update the lifes
+	ctx.font = '30px Arial';
+	ctx.fillStyle = "#0095DD";
+	ctx.fillText("LIFES: " + this.life, 50, 30);
+	
+}; 
+
+Life.prototype.decreaseLife = function() {
+	if(this.life > 0) {
+		this.life--;
+	}
+};
+
+/*<!-------------- Score Section -------------->*/
+var Score = function(score) {
+	this.score = 0;
+};
+
+Score.prototype.render = function() {
+	ctx.clearRect(280, 30, 0, 50); // Clear the canvas and update the lifes
+	ctx.font = '30px Arial';
+	ctx.fillStyle = "#0095DD";
+	ctx.fillText("SCORES: " + this.score, 280, 30);
+};
+
+Score.prototype.scorePoint = function() {
+	if(this.score >= 0) {
+		this.score++;
+	}
+};
+
 
 /*<!-------------- Instantiate Objects -------------->*/
 
@@ -128,6 +177,8 @@ var enemy5 = new Enemy(50, 60); // row 3
 // Place the player object in a variable called player
 var allEnemies = [enemy1, enemy2, enemy3, enemy4, enemy5];
 var player = new Player(200,400);
+var gameScore = new Score();
+var gameLife = new Life();
 
 
 // This listens for key presses and sends the keys to your
@@ -142,3 +193,6 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+
+
