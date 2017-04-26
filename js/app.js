@@ -26,14 +26,14 @@ Enemy.prototype.update = function(dt) {
 
 Enemy.prototype.move = function(dt) {
 	this.x += this.speed + dt;
-}
+};
 
 Enemy.prototype.newPosition = function() {
 	if(this.x > 500) {
 		this.x = -1000;
 		this.speed = (Math.random() * 10) + 2;
 	}
-}	
+};	
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
@@ -48,7 +48,6 @@ Enemy.prototype.render = function() {
 var Player = function(x, y, life, sprite) {
 	this.x = x;
 	this.y = y;
-	this.life = 3; // Set the player's with default lives
 	this.sprite = 'images/char-boy.png';
 };
 
@@ -94,7 +93,7 @@ Player.prototype.checkCollision = function() {
 };
 
 Player.prototype.receivePoints= function() {
-	// Check for player reaching top of canvas and winning the point
+	// Check for player reaching top of canvas and winning a point
 	if(this.y < 30) {
 		this.reset();
 		gameScore.scorePoint();
@@ -104,8 +103,7 @@ Player.prototype.receivePoints= function() {
 Player.prototype.reset = function() {
 	this.x = 200;
 	this.y = 400;
-	
-}
+};
 
 Player.prototype.handleInput = function(keyCode_value) {
 	switch(keyCode_value) {
@@ -121,7 +119,6 @@ Player.prototype.handleInput = function(keyCode_value) {
 		case 'down':
 			this.y += 85;
 	}
-
 };
 
 /*<!-------------- Spawn Gem -------------->*/
@@ -160,15 +157,28 @@ Gem.prototype.setNewLocation = function() {
 /*<!-------------- Life Section -------------->*/
 
 var Life = function(life) {
-	this.life = 3;
+	this.life = 5; // Set the player's with default lives
 };
 
 // Put information for lifes on the screen and when life is equal to zero(Game Over) 
 Life.prototype.render = function() {
-	ctx.clearRect(0,0, 505, 50); // Clear the canvas and update the lifes
+	ctx.clearRect(0,0, 200, 50); // Clear the canvas and update the lifes
 	ctx.font = '30px Arial';
 	ctx.fillStyle = "#0095DD";
 	ctx.fillText("LIFES: " + this.life, 50, 30);
+
+	// Game Over display on the screen if your life is zero
+	if(this.life === 0) {
+		ctx.drawImage(Resources.get('images/game-over.png'), 0, 0, 505, 606);
+		ctx.font = '80px Arial';
+		ctx.fillStyle = "#FFFFFF";
+		ctx.textAlign = "center";
+		// First Line Text
+		ctx.fillText("GAME OVER", 253, 280);
+		// Second Line Text
+		ctx.font = '35px Arial';
+		ctx.fillText("Final Score: " + gameScore.score, 253, 380);
+	}
 	
 }; 
 
@@ -176,7 +186,6 @@ Life.prototype.decreaseLife = function() {
 	if(this.life > 0) {
 		this.life--;
 	} 
-
 };
 
 /*<!-------------- Score Section -------------->*/
@@ -185,10 +194,10 @@ var Score = function(score) {
 };
 
 Score.prototype.render = function() {
-	ctx.clearRect(280, 30, 0, 50); // Clear the canvas and update the lifes
+	ctx.clearRect(200, 0, 280, 50); // Clear the canvas and update the scores
 	ctx.font = '30px Arial';
 	ctx.fillStyle = "#0095DD";
-	ctx.fillText("SCORES: " + this.score, 280, 30);
+	ctx.fillText("SCORES: " + this.score, 280, 30); 
 };
 
 Score.prototype.scorePoint = function() {
