@@ -124,6 +124,39 @@ Player.prototype.handleInput = function(keyCode_value) {
 
 };
 
+/*<!-------------- Spawn Gem -------------->*/
+
+var Gem = function(x, y, sprite) {
+	// Set a random location in x-axis
+	this.x = Math.floor(Math.random() * 5) * 101;
+	// Set a random location in y-axis
+	this.y = 60 + Math.floor(Math.random() * 3) * 83;
+	// Random Images is pick in an gemImages array
+	this.sprite = gemImages[Math.floor(Math.random() * 3)];
+};
+
+Gem.prototype.update = function() {
+	// Check collision for gem location and player location from x-axis and y-axis 
+	if(player.x < allGems.x + 60 && // Check for right x-axis
+		player.x + 60 > allGems.x && // Check for left x-axis
+		player.y < allGems.y + 60 && // Check for right y-axis
+		player.y + 60 > allGems.y) { // Check for left y-axis
+			this.setNewLocation();
+			// Player hit the gem will get 5 Points
+			gameScore.score5Point();
+	} 
+};
+
+Gem.prototype.render = function() {
+	ctx.drawImage(Resources.get(this.sprite), this.x, this.y, 100, 160);
+};
+
+Gem.prototype.setNewLocation = function() {
+	this.x = Math.floor(Math.random() * 5) * 101;
+	this.y = 60 + Math.floor(Math.random() * 3) * 83;
+	this.sprite = gemImages[Math.floor(Math.random() * 3)];
+};
+
 /*<!-------------- Life Section -------------->*/
 
 var Life = function(life) {
@@ -142,7 +175,8 @@ Life.prototype.render = function() {
 Life.prototype.decreaseLife = function() {
 	if(this.life > 0) {
 		this.life--;
-	}
+	} 
+
 };
 
 /*<!-------------- Score Section -------------->*/
@@ -163,6 +197,12 @@ Score.prototype.scorePoint = function() {
 	}
 };
 
+Score.prototype.score5Point = function() {
+	if(this.score >= 0) {
+		this.score += 5;
+	}
+};
+
 
 /*<!-------------- Instantiate Objects -------------->*/
 
@@ -170,16 +210,20 @@ Score.prototype.scorePoint = function() {
 var enemy1 = new Enemy(400,225); // row 1
 var enemy2 = new Enemy(50, 140);  // row 2
 var enemy3 = new Enemy(300, 140);  // row 2
-var enemy4 = new Enemy(300, 60);  // row 3
+var enemy4 = new Enemy(30, 60);  // row 3
 var enemy5 = new Enemy(50, 60); // row 3
+
+// Instantiate the objects
+var gemImages = ['images/Gem Orange.png', 'images/Gem Blue.png', 'images/Gem Green.png'];
+var allGems = new Gem();
+var gameScore = new Score();
+var gameLife = new Life();
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 var allEnemies = [enemy1, enemy2, enemy3, enemy4, enemy5];
 var player = new Player(200,400);
-var gameScore = new Score();
-var gameLife = new Life();
-
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.

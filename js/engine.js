@@ -95,7 +95,8 @@ var Engine = (function(global) {
             enemy.update(dt);
         });
         player.update();
-    }
+        allGems.update();
+      } 
 
     /* This function initially draws the "game level", it will then call
      * the renderEntities function. Remember, this function is called every
@@ -152,8 +153,10 @@ var Engine = (function(global) {
         });
 
         player.render();
+        allGems.render();
         gameLife.render();
         gameScore.render();
+      
 
     }
 
@@ -174,7 +177,11 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png' 
+        'images/char-boy.png',
+        'images/Gem Orange.png',
+        'images/Gem Green.png',
+        'images/Gem Blue.png',
+        'images/game-over.png'
     ]);
     Resources.onReady(init);
 
