@@ -2,6 +2,7 @@
 
 // Enemies our player must avoid
 var Enemy = function(x, y, speed, sprite) {
+	'use strict';
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
     this.x = x;
@@ -16,6 +17,7 @@ var Enemy = function(x, y, speed, sprite) {
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
+	'use strict';
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers. (Give the illusion of animation)
@@ -25,10 +27,12 @@ Enemy.prototype.update = function(dt) {
 };
 
 Enemy.prototype.move = function(dt) {
+	'use strict';
 	this.x += this.speed + dt;
 };
 
 Enemy.prototype.newPosition = function() {
+	'use strict';
 	if(this.x > 500) {
 		this.x = -1000;
 		this.speed = (Math.random() * 10) + 2;
@@ -37,6 +41,7 @@ Enemy.prototype.newPosition = function() {
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
+	'use strict';
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
@@ -46,12 +51,14 @@ Enemy.prototype.render = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 var Player = function(x, y, life, sprite) {
+	'use strict';
 	this.x = x;
 	this.y = y;
 	this.sprite = 'images/char-boy.png';
 };
 
 Player.prototype.update = function(dt) {
+	'use strict';
 	this.avoidOffScreen(); // Avoid character from moving beyond the wall
 	this.checkCollision(); // Collision between Player & Enemies
 	this.receivePoints(); // Player received points by reaching top of the canvas
@@ -59,10 +66,12 @@ Player.prototype.update = function(dt) {
 
 // Draw the player on the screen
 Player.prototype.render = function() {
+	'use strict';
 	ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }; 
 
 Player.prototype.avoidOffScreen= function() {
+	'use strict';
 	if(this.x < 0) {  // Check the left wall
 		this.x = 0;
 	} 
@@ -77,6 +86,7 @@ Player.prototype.avoidOffScreen= function() {
 };
 
 Player.prototype.checkCollision = function() {
+	'use strict';
 	// Loop the allEnemies array
 	for(var i = 0; i < allEnemies.length; i++) {
 		// Check collision for player location and enemies location from x-axis and y-axis 
@@ -93,6 +103,7 @@ Player.prototype.checkCollision = function() {
 };
 
 Player.prototype.receivePoints= function() {
+	'use strict';
 	// Check for player reaching top of canvas and winning a point
 	if(this.y < 30) {
 		this.reset();
@@ -101,11 +112,13 @@ Player.prototype.receivePoints= function() {
 };
 
 Player.prototype.reset = function() {
+	'use strict';
 	this.x = 200;
 	this.y = 400;
 };
 
 Player.prototype.handleInput = function(keyCode_value) {
+	'use strict';
 	switch(keyCode_value) {
 		case 'left':
 			this.x -= 100;
@@ -124,6 +137,7 @@ Player.prototype.handleInput = function(keyCode_value) {
 /*<!-------------- Spawn Gem -------------->*/
 
 var Gem = function(x, y, sprite) {
+	'use strict';
 	// Set a random location in x-axis
 	this.x = Math.floor(Math.random() * 5) * 101;
 	// Set a random location in y-axis
@@ -133,6 +147,7 @@ var Gem = function(x, y, sprite) {
 };
 
 Gem.prototype.update = function() {
+	'use strict';
 	// Check collision for gem location and player location from x-axis and y-axis 
 	if(player.x < this.x + 60 && // Check for right x-axis
 		player.x + 60 > this.x && // Check for left x-axis
@@ -145,10 +160,12 @@ Gem.prototype.update = function() {
 };
 
 Gem.prototype.render = function() {
+	'use strict';
 	ctx.drawImage(Resources.get(this.sprite), this.x, this.y, 100, 160);
 };
 
 Gem.prototype.setNewLocation = function() {
+	'use strict';
 	this.x = Math.floor(Math.random() * 5) * 101;
 	this.y = 60 + Math.floor(Math.random() * 3) * 83;
 	this.sprite = gemImages[Math.floor(Math.random() * 3)];
@@ -157,11 +174,13 @@ Gem.prototype.setNewLocation = function() {
 /*<!-------------- Life Section -------------->*/
 
 var Life = function(life) {
+	'use strict';
 	this.life = 5; // Set the player's with default lives
 };
 
 // Put information for lifes on the screen and when life is equal to zero(Game Over) 
 Life.prototype.render = function() {
+	'use strict';
 	ctx.clearRect(0,0, 200, 50); // Clear the canvas and update the lifes
 	ctx.font = '30px Arial';
 	ctx.strokeStyle = '#FFF';
@@ -170,6 +189,7 @@ Life.prototype.render = function() {
 
 	// Game Over display on the screen if your life is zero
 	if(this.life === 0) {
+		'use strict';
 		ctx.drawImage(Resources.get('images/game-over.png'), 0, 0, 505, 606);
 		ctx.font = '80px Arial';
 		ctx.fillStyle = "#FFF";
@@ -184,6 +204,7 @@ Life.prototype.render = function() {
 }; 
 
 Life.prototype.decreaseLife = function() {
+	'use strict';
 	if(this.life > 0) {
 		this.life--;
 	} 
@@ -191,10 +212,12 @@ Life.prototype.decreaseLife = function() {
 
 /*<!-------------- Score Section -------------->*/
 var Score = function(score) {
+	'use strict';
 	this.score = 0;
 };
 
 Score.prototype.render = function() {
+	'use strict';
 	ctx.clearRect(200, 0, 280, 50); // Clear the canvas and update the scores
 	ctx.font = '30px Arial';
 	ctx.strokeStyle = '#FFF';
@@ -203,12 +226,14 @@ Score.prototype.render = function() {
 };
 
 Score.prototype.scorePoint = function() {
+	'use strict';
 	if(this.score >= 0) {
 		this.score++;
 	}
 };
 
 Score.prototype.score5Point = function() {
+	'use strict';
 	if(this.score >= 0) {
 		this.score += 5;
 	}
