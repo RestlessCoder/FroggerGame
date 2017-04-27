@@ -80,10 +80,10 @@ Player.prototype.checkCollision = function() {
 	// Loop the allEnemies array
 	for(var i = 0; i < allEnemies.length; i++) {
 		// Check collision for player location and enemies location from x-axis and y-axis 
-		if(player.x < allEnemies[i].x + 60 && // Check for right x-axis
-			player.x + 60 > allEnemies[i].x && // Check for left x-axis
-			player.y < allEnemies[i].y + 60 && // Check for right y-axis
-			player.y + 60 > allEnemies[i].y) { // Check for left y-axis
+		if(this.x < allEnemies[i].x + 60 && // Check for right x-axis
+			this.x + 60 > allEnemies[i].x && // Check for left x-axis
+			this.y < allEnemies[i].y + 60 && // Check for right y-axis
+			this.y + 60 > allEnemies[i].y) { // Check for left y-axis
 				// Reset the player after collision
 				this.reset();
 				gameLife.decreaseLife();
@@ -134,10 +134,10 @@ var Gem = function(x, y, sprite) {
 
 Gem.prototype.update = function() {
 	// Check collision for gem location and player location from x-axis and y-axis 
-	if(player.x < allGems.x + 60 && // Check for right x-axis
-		player.x + 60 > allGems.x && // Check for left x-axis
-		player.y < allGems.y + 60 && // Check for right y-axis
-		player.y + 60 > allGems.y) { // Check for left y-axis
+	if(player.x < this.x + 60 && // Check for right x-axis
+		player.x + 60 > this.x && // Check for left x-axis
+		player.y < this.y + 60 && // Check for right y-axis
+		player.y + 60 > this.y) { // Check for left y-axis
 			this.setNewLocation();
 			// Player hit the gem will get 5 Points
 			gameScore.score5Point();
