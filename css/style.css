@@ -1,3 +1,67 @@
 body {
+	background: url(../images/background.jpg) no-repeat center center fixed;
+	background-size: cover;
     text-align: center;
+    font-family: 'Press Start 2P', cursive;
+    color: #FFF;
+}
+
+.main-title {
+	font-size: 35px;
+}
+
+#sidebar {
+	font-family: Arial;
+	position: absolute;
+	left: 120px;
+	top: 120px;
+	background-color: #000;
+	width: 280px;
+	height: 560px;
+	font-size: 22px;
+}
+
+.instruction-text {
+	font-size: 16px;
+}
+
+button {
+	font-family: 'Press Start 2P', cursive;
+	font-size: 25px;
+	background-color: #FFF;
+	color: black;
+	border: 2px solid #CCC;
+	padding: 20px;
+}
+
+button:hover {
+	background-color: grey;
+}
+
+a {
+	text-decoration: none;
+	color: #000;
+}
+
+a:hover {
+	color: #FFF;
+}
+
+/*
+*	Media Queries
+*/
+@media screen and (max-width: 1400px) {
+    #sidebar {
+    	display: block;
+    	top: 850px;
+    	left: 140px;
+    	width: 505px;
+    	height: 750px;
+    	font-size: 30px;
+  		
+    }
+
+    .instruction-text {
+		font-size: 25px;
+	}
 }

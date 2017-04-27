@@ -4,10 +4,35 @@
     <meta charset="UTF-8">
     <title>Effective JavaScript: Frogger</title>
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
 </head>
-<body>
+<body>	
+	<!-- Music Background -->
+	<embed name="music" src="music/music.mp3" loop="false" hidden="true" autostart="true">
+	<!-- Header -->
+	<header>
+		<h1 class="main-title">Welcome to My Arcade Game</h1>
+	</header> 
+
+	<!-- Aside -->
+	<aside id="sidebar">
+		<h1>Rules</h1>
+		<p class="instruction-text">Your goal is simple move across the bricks towards the water without getting hit by the red bugs</p>
+		
+		<h1>How To Play</h1>
+		<p class="instruction-text">Press arrows : <br><br>'Left', 'Right', <br>'Up' and 'Down' <br>to navigate the Player</p>
+
+		<h1>How to Score</h1>
+		<p class="instruction-text">Reaching the water will <br>get you a point<br>Collect each Gem will <br> get you 5 points</p>
+	</aside>
+
     <script src="js/resources.js"></script>
     <script src="js/app.js"></script>
     <script src="js/engine.js"></script>
+
+    <footer>
+    	<button><a href="">RESTART</a></button>
+    </footer>
+
 </body>
 </html>

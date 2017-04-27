@@ -164,14 +164,15 @@ var Life = function(life) {
 Life.prototype.render = function() {
 	ctx.clearRect(0,0, 200, 50); // Clear the canvas and update the lifes
 	ctx.font = '30px Arial';
-	ctx.fillStyle = "#0095DD";
-	ctx.fillText("LIFES: " + this.life, 50, 30);
+	ctx.strokeStyle = '#FFF';
+    ctx.lineWidth = 3;
+	ctx.strokeText("LIFES: " + this.life, 50, 30);
 
 	// Game Over display on the screen if your life is zero
 	if(this.life === 0) {
 		ctx.drawImage(Resources.get('images/game-over.png'), 0, 0, 505, 606);
 		ctx.font = '80px Arial';
-		ctx.fillStyle = "#FFFFFF";
+		ctx.fillStyle = "#FFF";
 		ctx.textAlign = "center";
 		// First Line Text
 		ctx.fillText("GAME OVER", 253, 280);
@@ -196,8 +197,9 @@ var Score = function(score) {
 Score.prototype.render = function() {
 	ctx.clearRect(200, 0, 280, 50); // Clear the canvas and update the scores
 	ctx.font = '30px Arial';
-	ctx.fillStyle = "#0095DD";
-	ctx.fillText("SCORES: " + this.score, 280, 30); 
+	ctx.strokeStyle = '#FFF';
+    ctx.lineWidth = 3;
+	ctx.strokeText("SCORES: " + this.score, 280, 30); 
 };
 
 Score.prototype.scorePoint = function() {
