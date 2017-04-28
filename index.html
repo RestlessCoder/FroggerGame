@@ -8,21 +8,25 @@
 </head>
 <body>	
 	<!-- Music Background -->
-	<embed name="music" src="music/music.mp3" loop="false" hidden="true" autostart="true">
+	<audio autoplay>
+		<source src="music/music.ogg" type="audio/ogg">
+		<source src="music/music.mp3" type="audio/mpeg">
+	  Your browser does not support the audio element
+	</audio>
 	<!-- Header -->
 	<header>
 		<h1 class="main-title">Welcome to My Arcade Game</h1>
 	</header> 
 
 	<!-- Aside -->
-	<aside id="sidebar">
-		<h1>Rules</h1>
+	<aside class="sidebar">
+		<h2>Rules</h2>
 		<p class="instruction-text">Your goal is simple move across the bricks towards the water without getting hit by the red bugs</p>
 		
-		<h1>How To Play</h1>
+		<h2>How To Play</h2>
 		<p class="instruction-text">Press arrows : <br><br>'Left', 'Right', <br>'Up' and 'Down' <br>to navigate the Player</p>
 
-		<h1>How to Score</h1>
+		<h2>How to Score</h2>
 		<p class="instruction-text">Reaching the water will <br>get you a point<br>Collect each Gem will <br> get you 5 points</p>
 	</aside>
 
@@ -31,7 +35,9 @@
     <script src="js/engine.js"></script>
 
     <footer>
-    	<button><a href="">RESTART</a></button>
+    	<form action="#" method="get">
+			<button>RESTART</button>
+		</form>
     </footer>
 
 </body>

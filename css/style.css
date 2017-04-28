@@ -10,7 +10,7 @@ body {
 	font-size: 35px;
 }
 
-#sidebar {
+.sidebar {
 	font-family: Arial;
 	position: absolute;
 	left: 120px;
@@ -36,14 +36,6 @@ button {
 
 button:hover {
 	background-color: grey;
-}
-
-a {
-	text-decoration: none;
-	color: #000;
-}
-
-a:hover {
 	color: #FFF;
 }
 
