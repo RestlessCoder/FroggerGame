@@ -43,7 +43,7 @@ button:hover {
 *	Media Queries
 */
 @media screen and (max-width: 1400px) {
-    #sidebar {
+    .sidebar {
     	display: block;
     	top: 850px;
     	left: 140px;
