@@ -9,13 +9,8 @@ Your goal is simple move across the bricks towards the water without getting hit
 #### Movement and Controls
 Press arrows : 'Left', 'Right', 'Up' and 'Down' on the keyboard to navigate the Player
 
-## Installation
-To run the application:
-
-1. Download the GitHub zip file or clone the repository onto your local workstation:
-	* Zip file - [https://github.com/RestlessCoder/FroggerGame/archive/master.zip](https://github.com/RestlessCoder/FroggerGame/archive/master.zip "download zip file")
-	* Git clone - [https://github.com/RestlessCoder/FroggerGame.git](https://github.com/RestlessCoder/FroggerGame.git/ "git clone repository")
-2. Open a browser window and navigate to the index.html file in your application's directory.
+## Live Demo
+[Click Here](https://restlesscoder.github.io/FroggerGame/) to Watch my Arcade Game
 
 ## Helpers / Techniques
 - Object-Oriented JavaScript
